@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:complexType name="T7_switch">
+		<xs:sequence>
+			<xs:element name="case" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="part" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:attribute name="type" use="required" type="xs:string"/>
+								<xs:attribute name="name" use="required" type="xs:string"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="id" use="required" type="xs:string"/>
+					<xs:attribute name="comment" use="required" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="xs:byte"/>
+	</xs:complexType>
+	<xs:complexType name="T7_part">
+		<xs:sequence>
+			<xs:element name="reader" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute name="type" use="required" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="type" use="required" type="xs:string"/>
+		<xs:attribute name="sizeid" type="xs:byte"/>
+		<xs:attribute name="size" type="xs:byte"/>
+		<xs:attribute name="name" use="required" type="xs:string"/>
+		<xs:attribute name="id" type="xs:byte"/>
+	</xs:complexType>
+	<xs:complexType name="T4_switch">
+		<xs:sequence>
+			<xs:element name="case" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence minOccurs="0">
+						<xs:element name="part" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:attribute name="type" use="required" type="xs:string"/>
+								<xs:attribute name="name" use="required" type="xs:string"/>
+								<xs:attribute name="id" type="xs:byte"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="for" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="part" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:attribute name="type" use="required" type="xs:string"/>
+											<xs:attribute name="name" use="required" type="xs:string"/>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="id" use="required" type="xs:byte"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="id" use="required" type="xs:string"/>
+					<xs:attribute name="comment" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="xs:byte"/>
+	</xs:complexType>
+	<xs:complexType name="T4_part">
+		<xs:sequence>
+			<xs:element name="reader" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute name="type" use="required" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="type" use="required" type="xs:string"/>
+		<xs:attribute name="sizeid" type="xs:byte"/>
+		<xs:attribute name="size" type="xs:byte"/>
+		<xs:attribute name="name" use="required" type="xs:string"/>
+		<xs:attribute name="id" type="xs:byte"/>
+	</xs:complexType>
+	<xs:complexType name="T4_for">
+		<xs:sequence>
+			<xs:element name="part" maxOccurs="unbounded" type="T7_part"/>
+			<xs:sequence minOccurs="0">
+				<xs:element name="switch" type="T7_switch"/>
+				<xs:element name="part" maxOccurs="unbounded" type="T7_part"/>
+				<xs:element name="switch" type="T7_switch"/>
+			</xs:sequence>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="xs:byte"/>
+	</xs:complexType>
+	<xs:element name="protocol">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="packetfamilly" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="packet" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence minOccurs="0">
+										<xs:element name="part" maxOccurs="unbounded" type="T4_part"/>
+										<xs:choice minOccurs="0">
+											<xs:sequence>
+												<xs:element name="switch" type="T4_switch"/>
+												<xs:sequence minOccurs="0">
+													<xs:element name="part" maxOccurs="unbounded" type="T4_part"/>
+													<xs:sequence minOccurs="0">
+														<xs:sequence minOccurs="0">
+															<xs:element name="switch" type="T4_switch"/>
+															<xs:element name="part" type="T4_part"/>
+														</xs:sequence>
+														<xs:element name="for" type="T4_for"/>
+													</xs:sequence>
+												</xs:sequence>
+											</xs:sequence>
+											<xs:sequence>
+												<xs:element name="for" type="T4_for"/>
+												<xs:sequence minOccurs="0">
+													<xs:element name="part" maxOccurs="unbounded" type="T4_part"/>
+													<xs:choice minOccurs="0">
+														<xs:element name="for" type="T4_for"/>
+														<xs:element name="switch" type="T4_switch"/>
+													</xs:choice>
+												</xs:sequence>
+											</xs:sequence>
+										</xs:choice>
+									</xs:sequence>
+									<xs:attribute name="name" use="required" type="xs:string"/>
+									<xs:attribute name="id" use="required" type="xs:string"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="way" use="required" type="xs:string"/>
+						<xs:attribute name="switchtype" use="required" type="xs:string"/>
+						<xs:attribute name="name" type="xs:string"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="strictlength" use="required" type="xs:boolean"/>
+			<xs:attribute name="sizebytes" use="required" type="xs:byte"/>
+			<xs:attribute name="port" use="required" type="xs:short"/>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="crypt" use="required" type="xs:string"/>
+			<xs:attribute name="checksumSize" use="required" type="xs:byte"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
