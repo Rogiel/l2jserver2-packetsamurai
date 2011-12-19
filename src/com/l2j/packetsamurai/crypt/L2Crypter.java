@@ -81,8 +81,6 @@ public class L2Crypter implements ProtocolCrypter {
 	}
 
 	public void decode(byte[] raw, byte[] key) {
-		System.out.println("Key: " + key.length);
-		System.out.println("Raw: " + raw.length);
 		int temp = 0;
 		for (int i = 0; i < raw.length; i++) {
 			int temp2 = raw[i] & 0xFF;

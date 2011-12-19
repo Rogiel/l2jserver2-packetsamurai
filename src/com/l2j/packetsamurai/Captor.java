@@ -1,6 +1,5 @@
 package com.l2j.packetsamurai;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Iterator;
@@ -66,15 +65,6 @@ public class Captor implements Runnable {
 
 	public void initDevice() throws Exception {
 		this.configureProtocols();
-
-		System.out.println(System.getProperty("java.library.path"));
-		System.setProperty(
-				"java.library.path",
-				System.getProperty("java.library.path") + ":"
-						+ new File("").getAbsolutePath());
-		System.out.println(System.getProperty("java.library.path"));
-		
-		System.loadLibrary("jpcap");
 
 		NetworkInterface[] niList = null;
 		try {

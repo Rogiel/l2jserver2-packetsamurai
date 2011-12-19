@@ -59,7 +59,7 @@
 			</fileset>
 		</copy>
 		<copy todir="${build.dist}/protocols">
-			<fileset dir="${src}/../dist/protocols">
+			<fileset dir="${src}/../protocols">
 				<include name="*.*"/>
 			</fileset>
 		</copy>
