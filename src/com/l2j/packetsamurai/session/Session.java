@@ -69,7 +69,7 @@ public class Session
         {
             try
             {
-                Class<?> clazz = Class.forName("com.aionlightning.packetsamurai.crypt."+_protocol.getEncryption()+"Crypter");
+                Class<?> clazz = Class.forName("com.l2j.packetsamurai.crypt."+_protocol.getEncryption()+"Crypter");
                 _crypt = (ProtocolCrypter) clazz.newInstance();
             }
             catch (SecurityException e)

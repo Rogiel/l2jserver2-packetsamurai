@@ -849,7 +849,7 @@ public class Protocol
                 Class<?> clazz = null;
                 try
                 {
-                    clazz = Class.forName("com.aionlightning.packetsamurai.parser.valuereader."+atr.getNodeValue()+"Reader");
+                    clazz = Class.forName("com.l2j.packetsamurai.parser.valuereader."+atr.getNodeValue()+"Reader");
                 }
                 catch (DOMException e)
                 {

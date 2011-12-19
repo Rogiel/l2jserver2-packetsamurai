@@ -1,5 +1,6 @@
 package com.l2j.packetsamurai;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Iterator;
@@ -66,10 +67,20 @@ public class Captor implements Runnable {
 	public void initDevice() throws Exception {
 		this.configureProtocols();
 
+		System.out.println(System.getProperty("java.library.path"));
+		System.setProperty(
+				"java.library.path",
+				System.getProperty("java.library.path") + ":"
+						+ new File("").getAbsolutePath());
+		System.out.println(System.getProperty("java.library.path"));
+		
+		System.loadLibrary("jpcap");
+
 		NetworkInterface[] niList = null;
 		try {
 			niList = JpcapCaptor.getDeviceList();
 		} catch (UnsatisfiedLinkError ule) {
+			ule.printStackTrace();
 			PacketSamurai.getUserInterface().log(
 					"ERROR: You are missing the JPcap lib :\n"
 							+ ule.getLocalizedMessage());
@@ -106,8 +117,7 @@ public class Captor implements Runnable {
 			PacketSamurai.getUserInterface().log(
 					"Found Interface: " + niList[i].name);
 			nameList[i] = (niList[i].addresses.length >= 1 ? niList[i].addresses[0].address
-					.getHostAddress()
-					+ ": "
+					.getHostAddress() + ": "
 					: "")
 					+ niList[i].name;
 			if (niList[i].description != null)
@@ -120,8 +130,8 @@ public class Captor implements Runnable {
 				new String[] { "Interfaces" }, choices);
 		if (ret != null) {
 			this.openDevice(ret[0]);
-			PacketSamurai.setConfigProperty("NetworkInterface", Integer
-					.toString(ret[0]));
+			PacketSamurai.setConfigProperty("NetworkInterface",
+					Integer.toString(ret[0]));
 		} else {
 			PacketSamurai.getUserInterface().log("No interface selected.");
 		}
@@ -308,8 +318,7 @@ public class Captor implements Runnable {
 		}
 		PacketSamurai
 				.getUserInterface()
-				.log(
-						"Please select the active protocols for Sniffing, non active protocols are used for opening old logs.");
+				.log("Please select the active protocols for Sniffing, non active protocols are used for opening old logs.");
 		int[] ret = ChoiceDialog.choiceDialog(
 				"Select Active Protocols for Sniffing", titles, choices);
 

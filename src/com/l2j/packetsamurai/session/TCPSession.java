@@ -37,7 +37,7 @@ public class TCPSession extends Session
         Class<?> clazz = null;
         try
         {
-            clazz = Class.forName("com.aionlightning.packetsamurai.session.packetbuffer."+pBufType);
+            clazz = Class.forName("com.l2j.packetsamurai.session.packetbuffer."+pBufType);
             if(clazz == null)
             {
                 PacketSamurai.getUserInterface().log("Wrong PacketBuffer type in "+this.getProtocol().getFileName()+" defaulting to DefaultPacketBuffer");

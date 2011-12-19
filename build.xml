@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="AL_PacketSamurai" default="dist" basedir=".">
+<project name="L2_PacketSamurai" default="dist" basedir=".">
 	<description>
         Description
     </description>
@@ -34,8 +34,8 @@
 			<src path="${src}"/>
 			<classpath refid="classpath"/>
 		</javac>
-		<copy todir="${build.classes}/com/aionlightning/packetsamurai/gui/images">
-			<fileset dir="${src}/com/aionlightning/packetsamurai/gui/images">
+		<copy todir="${build.classes}/com/l2j/packetsamurai/gui/images">
+			<fileset dir="${src}/com/l2j/packetsamurai/gui/images">
 				<include name="*.png"/>
 			</fileset>
 		</copy>
@@ -73,7 +73,7 @@
 				<include name="*.*"/>
 			</fileset>
 		</copy>
-		<zip destfile="${build}/al_packetsamurai-dist.zip" basedir="${build.dist}"/>
+		<zip destfile="${build}/l2_packetsamurai-dist.zip" basedir="${build.dist}"/>
 	</target>
 	<target name="clean" description="Remove the output directories">
 		<delete dir="${build}"/>

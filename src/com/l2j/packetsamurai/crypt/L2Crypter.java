@@ -25,7 +25,7 @@ import com.l2j.packetsamurai.protocol.protocoltree.PacketFamilly.PacketDirection
 import com.l2j.packetsamurai.session.DataPacket;
 
 /**
- * @author Rogiel
+ * @author <a href="http://www.rogiel.com">Rogiel</a>
  */
 public class L2Crypter implements ProtocolCrypter {
 	private Protocol protocol;
